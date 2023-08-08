@@ -1,8 +1,8 @@
 {
-  "name": "my-template",
+  "name": "goit-react-hw-05-movies",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://giligran.github.io/my-template/",
+  "homepage": "https://giligran.github.io/goit-react-hw-05-movies/",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
