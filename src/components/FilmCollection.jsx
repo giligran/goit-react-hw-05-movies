@@ -1,28 +1,22 @@
-import React from 'react';
-import tmdbService from 'utils/TMDBService';
+import FilmCollectionItem from './FilmCollectionItem';
 
-class FilmCollection extends React.Component {
-  state = {
-    isLoading: false,
-  };
-
-  async componentDidMount() {
-    try {
-      const day = 'day';
-      const trendingMovies = await tmdbService.getTrendingMovies(day);
-      this.setState({
-        trendingMovies: trendingMovies.results,
-        isLoading: true,
-      });
-    } catch (error) {
-      this.setState({
-        error: 'Ошибка при загрузке трендовых фильмов',
-        loading: false,
-      });
-    }
-  }
-
-  render() {
-    return;
-  }
+function FilmCollection({ error, isFetching, movies }) {
+  return (
+    <ul>
+      {movies && movies.length > 0 ? (
+        movies.map(movie => (
+          <FilmCollectionItem
+            key={movie.id}
+            movie={movie}
+            error={error}
+            isFetching={isFetching}
+          />
+        ))
+      ) : (
+        <p>No movies available.</p>
+      )}
+    </ul>
+  );
 }
+
+export default FilmCollection;
