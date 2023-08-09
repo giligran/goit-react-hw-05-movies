@@ -7,8 +7,12 @@ function Home() {
   const { isFetching, data, error, fetchData } = useFetch();
 
   useEffect(() => {
-    fetchData(tmdbService.getTrendingMovies());
+    fetchData(tmdbService.getTrendingMovies('week'));
   }, [fetchData]);
+
+  console.log(isFetching, 'isFetching');
+  console.log(data, 'data');
+  console.log(error, 'error');
 
   const movies = data?.results;
 
