@@ -12,7 +12,7 @@ class TMDBService {
     });
   }
 
-  async getTrendingMovies(timeWindow) {
+  async getTrendingMovies(timeWindow = 'day') {
     try {
       const response = await this.axiosInstance.get(
         `/trending/all/${timeWindow}`
