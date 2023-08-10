@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_KEY = 'aa1de53af4f58d0982608e428ee96b57';
+const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w300/';
 
 class TMDBService {
   constructor() {
@@ -19,7 +20,7 @@ class TMDBService {
       );
       return response.data;
     } catch (error) {
-      console.error('Ошибка при получении трендовых фильмов:', error);
+      console.error('Помилка при отриманні списку популярних фільмів ', error);
       throw error;
     }
   }
@@ -33,7 +34,7 @@ class TMDBService {
       });
       return response.data;
     } catch (error) {
-      console.error('Ошибка при поиске фильмов:', error);
+      console.error('Помилка при пошуку фільму', error);
       throw error;
     }
   }
@@ -43,8 +44,18 @@ class TMDBService {
       const response = await this.axiosInstance.get(`/movie/${movieId}`);
       return response.data;
     } catch (error) {
-      console.error('Ошибка при получении деталей фильма:', error);
+      console.error('Помилка під час отримання додаткової інформації', error);
       throw error;
+    }
+  }
+
+  async getMovieImage(imagePath) {
+    try {
+      const fullImgUrl = `${IMAGE_BASE_URL}${imagePath}`;
+      const response = await axios.get(fullImgUrl, { responseType: 'blob' });
+      return URL.createObjectURL(response.data);
+    } catch (error) {
+      console.error('Помилка під час завантаження зображення', error);
     }
   }
 
@@ -55,7 +66,7 @@ class TMDBService {
       );
       return response.data;
     } catch (error) {
-      console.error('Ошибка при получении актёрского состава фильма:', error);
+      console.error('Помилка при отриманні акторського складу:', error);
       throw error;
     }
   }
@@ -67,7 +78,7 @@ class TMDBService {
       );
       return response.data;
     } catch (error) {
-      console.error('Ошибка при получении отзывов о фильме:', error);
+      console.error('Помилка при отриманні відгуків про фільм:', error);
       throw error;
     }
   }

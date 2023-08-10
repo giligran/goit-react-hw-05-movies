@@ -17,10 +17,10 @@ function Home() {
   const movies = data?.results;
 
   return (
-    <>
+    <section>
       <h1>Trending today</h1>
       <FilmCollection error={error} isFetching={isFetching} movies={movies} />
-    </>
+    </section>
   );
 }
 

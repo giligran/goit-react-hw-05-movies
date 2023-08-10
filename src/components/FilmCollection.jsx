@@ -2,20 +2,26 @@ import FilmCollectionItem from './FilmCollectionItem';
 
 function FilmCollection({ error, isFetching, movies }) {
   return (
-    <ul>
-      {movies && movies.length > 0 ? (
-        movies.map(movie => (
-          <FilmCollectionItem
-            key={movie.id}
-            movie={movie}
-            error={error}
-            isFetching={isFetching}
-          />
-        ))
+    <div>
+      {isFetching ? (
+        <p>Loading...</p>
       ) : (
-        <p>No movies available.</p>
+        <ul>
+          {movies && movies.length > 0 ? (
+            movies.map(movie => (
+              <FilmCollectionItem
+                key={movie.id}
+                movie={movie}
+                error={error}
+                isFetching={isFetching}
+              />
+            ))
+          ) : (
+            <p>No movies available.</p>
+          )}
+        </ul>
       )}
-    </ul>
+    </div>
   );
 }
 
