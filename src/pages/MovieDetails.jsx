@@ -1,20 +1,38 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useFetch } from 'hooks/useFetch';
 import tmdbService from 'utils/TMDBService';
 
 function MovieDetails() {
   const { movieId } = useParams();
-  const { poster, setPoster } = useState(null);
+  const [imageURL, setImageURL] = useState(null);
   const { isFetching, data: movieDetails, error, fetchData } = useFetch();
 
   useEffect(() => {
     fetchData(tmdbService.getMovieDetails(movieId));
-  }, [fetchData, movieId]);
+  }, [fetchData]);
 
-  console.log('isFetching:', isFetching);
-  console.log('movieDetails:', movieDetails);
-  console.log('error:', error);
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (!movieDetails) {
+        return;
+      }
+      try {
+        const url = await tmdbService.getMovieImage(movieDetails.backdrop_path);
+        setImageURL(url);
+        console.log(url);
+      } catch (error) {
+        console.error('Ошибка при загрузке изображения:', error);
+      }
+    };
+
+    fetchImage();
+    return () => {
+      if (imageURL) {
+        URL.revokeObjectURL(imageURL);
+      }
+    };
+  }, [movieDetails]);
 
   if (isFetching || movieDetails === null) {
     return <p>Loading...</p>;
@@ -26,13 +44,20 @@ function MovieDetails() {
 
   return (
     <div>
-      <h2>{movieDetails.original_title}</h2>
-      <p>{movieDetails.overview}</p>
-      <ul>
-        {movieDetails.genres.map(genre => (
-          <li key={genre.id}>{genre.name}</li>
-        ))}
-      </ul>
+      <Link to="/movies" aria-label="Back to movies">
+        back to movies
+      </Link>
+      <div>
+        <img src={imageURL} alt="" />
+        <h2>{movieDetails.original_title}</h2>
+        <p>{movieDetails.overview}</p>
+        <h3>Genres</h3>
+        <ul>
+          {movieDetails.genres.map(genre => (
+            <li key={genre.id}>{genre.name}</li>
+          ))}
+        </ul>{' '}
+      </div>
     </div>
   );
 }
