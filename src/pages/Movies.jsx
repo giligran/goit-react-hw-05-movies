@@ -1,16 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import { useFetch } from 'hooks/useFetch';
 import tmdbService from 'utils/TMDBService';
 import FilmCollection from 'components/FilmCollection';
+import { useEffect } from 'react';
 
 function Movies() {
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query') ?? '';
+
   const { isFetching, data: moviesList, error, fetchData } = useFetch();
+
+  useEffect(() => {
+    if (query) {
+      fetchData(tmdbService.searchMovies(query));
+    }
+  }, []);
 
   const handleSearchSubmit = e => {
     e.preventDefault();
+    const form = e.currentTarget;
+
+    if (!query) {
+      return;
+    }
+
+    form.reset();
     fetchData(tmdbService.searchMovies(query));
-    setQuery('');
+  };
+
+  const updateQueryString = query => {
+    const nextParams = query !== '' ? { query } : {};
+    setSearchParams(nextParams);
   };
 
   const movies = moviesList?.results;
@@ -23,8 +44,8 @@ function Movies() {
           type="text"
           id="searchInput"
           placeholder="Enter a search term"
-          value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={e => updateQueryString(e.target.value)}
+          autoComplete="off"
         />
         <button type="submit">Search</button>
       </form>

@@ -1,12 +1,14 @@
-import FilmCollectionItem from './FilmCollectionItem';
+import Loader from 'components/Loader/Loader';
+import FilmCollectionItem from '../FilmCollectionItem';
+import { FilmCollectionList } from './FilmCollection.styled';
 
 function FilmCollection({ error, isFetching, movies }) {
   return (
     <div>
       {isFetching ? (
-        <p>Loading...</p>
+        <Loader open={true} />
       ) : (
-        <ul>
+        <FilmCollectionList>
           {movies && movies.length > 0 ? (
             movies.map(movie => (
               <FilmCollectionItem
@@ -19,7 +21,7 @@ function FilmCollection({ error, isFetching, movies }) {
           ) : (
             <p>No movies available.</p>
           )}
-        </ul>
+        </FilmCollectionList>
       )}
     </div>
   );
