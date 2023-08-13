@@ -11,8 +11,6 @@ function Home() {
 
   const movies = data?.results;
 
-  console.log(movies);
-
   return (
     <section style={{ paddingTop: '32px' }}>
       <h1 style={{ marginBottom: '32px' }}>Trending today</h1>

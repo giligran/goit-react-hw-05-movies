@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 
 function FilmCollectionItem({ movie }) {
@@ -16,5 +17,13 @@ function FilmCollectionItem({ movie }) {
     </li>
   );
 }
+
+FilmCollectionItem.propTypes = {
+  movie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string,
+    title: PropTypes.string,
+  }),
+};
 
 export default FilmCollectionItem;

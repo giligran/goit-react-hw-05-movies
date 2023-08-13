@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Thumbnail, ListItem } from './CastListItem.styled';
 
 function CastListItem({ actor }) {
@@ -19,5 +20,14 @@ function CastListItem({ actor }) {
     </ListItem>
   );
 }
+
+CastListItem.propTypes = {
+  actor: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    character: PropTypes.string.isRequired,
+    profile_path: PropTypes.string,
+  }).isRequired,
+};
 
 export default CastListItem;

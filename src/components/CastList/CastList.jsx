@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CastListItem from 'components/CastListItem';
 import { CastListContainer } from './CastList.styled';
 
@@ -20,5 +21,16 @@ function CastList({ cast }) {
     </div>
   );
 }
+
+CastList.propTypes = {
+  cast: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      character: PropTypes.string.isRequired,
+      profile_path: PropTypes.string,
+    })
+  ),
+};
 
 export default CastList;

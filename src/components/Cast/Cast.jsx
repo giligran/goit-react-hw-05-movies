@@ -14,7 +14,6 @@ function Cast() {
   }, [fetchData, movieId]);
 
   const cast = data?.cast;
-  console.log(cast);
 
   if (isFetching) {
     return <Loader open={true} />;
