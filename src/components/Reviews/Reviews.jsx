@@ -10,7 +10,7 @@ function Reviews() {
 
   useEffect(() => {
     fetchData(tmdbService.getMovieReviews(movieId));
-  }, []);
+  }, [fetchData, movieId]);
   console.log(reviews);
 
   if (isFetching) {

@@ -34,6 +34,7 @@ function MovieDetails() {
         URL.revokeObjectURL(imageURL);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieDetails, movieId]);
 
   if (isFetching || movieDetails === null) {

@@ -11,7 +11,7 @@ function Cast() {
 
   useEffect(() => {
     fetchData(tmdbService.getMovieCredits(movieId));
-  }, []);
+  }, [fetchData, movieId]);
 
   const cast = data?.cast;
   console.log(cast);

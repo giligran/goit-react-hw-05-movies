@@ -15,7 +15,7 @@ function Movies() {
     if (query) {
       fetchData(tmdbService.searchMovies(query));
     }
-  }, []);
+  }, [query, fetchData]);
 
   const handleSearchSubmit = e => {
     e.preventDefault();
