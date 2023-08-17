@@ -19,19 +19,14 @@ function Movies() {
 
   const handleSearchSubmit = e => {
     e.preventDefault();
-    const form = e.currentTarget;
-
-    if (!query) {
+    const form = e.target;
+    const searchInput = form.elements.query;
+    const newQuery = searchInput.value;
+    if (!newQuery) {
       return;
     }
-
+    setSearchParams({ query: newQuery });
     form.reset();
-    fetchData(tmdbService.searchMovies(query));
-  };
-
-  const updateQueryString = query => {
-    const nextParams = query !== '' ? { query } : {};
-    setSearchParams(nextParams);
   };
 
   const movies = moviesList?.results;
@@ -41,10 +36,10 @@ function Movies() {
       <form onSubmit={handleSearchSubmit}>
         <label htmlFor="searchInput">Search:</label>
         <input
+          name="query"
           type="text"
           id="searchInput"
           placeholder="Enter a search term"
-          onChange={e => updateQueryString(e.target.value)}
           autoComplete="off"
         />
         <button type="submit">Search</button>

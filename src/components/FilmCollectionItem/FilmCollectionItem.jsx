@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
+import { CollectionItem } from './FilmCollectionItem.styled';
 
 function FilmCollectionItem({ movie }) {
   const location = useLocation();
@@ -10,11 +11,11 @@ function FilmCollectionItem({ movie }) {
   const title = movie.name ?? movie.title;
 
   return (
-    <li>
+    <CollectionItem>
       <Link to={`/movies/${movie.id}`} state={{ from: location }}>
         {title}
       </Link>
-    </li>
+    </CollectionItem>
   );
 }
 
