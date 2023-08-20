@@ -43,7 +43,7 @@ const StyledLink = styled(NavLink)`
 
 function MovieDetails() {
   const location = useLocation();
-  const backLinkHref = useRef(location.state?.from ?? '/movie');
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
 
   const { movieId } = useParams();
   const [imageURL, setImageURL] = useState(null);
